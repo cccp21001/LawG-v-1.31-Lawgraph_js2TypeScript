@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LawG v1.31 - Legal Battle Visualization</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-badge">LawG v1.31 — Lawgraph</div>
+            <h1 id="caseTitle">⚖️ Dobbs v. Jackson (2022)</h1>
+            <p class="subtitle" id="caseSubtitle">Overruling Roe v. Wade</p>
+            <p class="case-info" id="caseInfo">Supreme Court Decision: 6-3 — Roe Overruled</p>
+            <p id="stageIndicator" class="stage-indicator">
+                <span class="stage-dot active" id="stage1Dot"></span> Stage 1: Roe v. Wade
+                <span class="stage-arrow">→</span>
+                <span class="stage-dot" id="stage2Dot"></span> Stage 2: Dobbs v. Jackson
+            </p>
+        </header>
+
+        <div class="canvas-container">
+            <canvas id="battleCanvas"></canvas>
+            <!-- Excel-style yellow balloon tooltip -->
+            <div id="tooltip" class="excel-tooltip"></div>
+        </div>
+
+        <div class="controls">
+            <button id="playBtn" class="btn-primary">
+                <i class="fas fa-play"></i> Play Animation
+            </button>
+            <button id="pauseBtn" class="btn-secondary" disabled>
+                <i class="fas fa-pause"></i> Pause
+            </button>
+            <button id="resetBtn" class="btn-secondary">
+                <i class="fas fa-redo"></i> Reset
+            </button>
+        </div>
+
+        <div class="info-section">
+            <div class="info-card stage1-card">
+                <h3>📊 Stage 1: Roe v. Wade (1973)</h3>
+                <p>X graph (<strong style="color: #2563EB;">Blue, Plaintiff/Π</strong>) vs Y graph (<strong style="color: #DB2777;">Pink, Defendant/Δ</strong>)</p>
+                <div class="opinion-summary majority-summary">
+                    <h4><i class="fas fa-gavel"></i> Majority Opinion (7 Justices) — X Wins</h4>
+                    <ul>
+                        <li>14th Amendment Due Process includes privacy rights</li>
+                        <li>Woman's right to choose abortion is constitutional</li>
+                        <li>Trimester framework balances rights and state interest</li>
+                    </ul>
+                </div>
+                <div class="opinion-summary dissent-summary">
+                    <h4><i class="fas fa-balance-scale-left"></i> Dissenting Opinion (2 Justices)</h4>
+                    <ul>
+                        <li>No constitutional basis for abortion rights</li>
+                        <li>Court exceeded authority ("Raw Judicial Power")</li>
+                        <li>State legislatures should decide democratically</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-card stage2-card">
+                <h3>📊 Stage 2: Dobbs v. Jackson (2022)</h3>
+                <p>X/Y positions swap! X (<strong style="color: #DB2777;">Pink, ↑Up</strong>) wins, overruling Roe v. Wade</p>
+                <div class="opinion-summary majority-summary-dobbs">
+                    <h4><i class="fas fa-gavel"></i> Majority Opinion (6-3) — Overrules Roe</h4>
+                    <ul>
+                        <li>Constitution does not confer right to abortion</li>
+                        <li>Roe was "egregiously wrong from the start"</li>
+                        <li>Authority returned to the people and their elected representatives</li>
+                    </ul>
+                </div>
+                <div class="opinion-summary dissent-summary-dobbs">
+                    <h4><i class="fas fa-balance-scale-left"></i> Dissenting Opinion (3 Justices)</h4>
+                    <ul>
+                        <li>Overruling Roe undermines the Court's legitimacy</li>
+                        <li>Women lose fundamental constitutional protection</li>
+                        <li>Stare decisis abandoned without justification</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-card how-to-card">
+                <h3>💡 How to Read This Visualization</h3>
+                <ul>
+                    <li><strong>X graph (Plaintiff/Π)</strong>: Starts from bottom-left, argument strength shown by length & angle</li>
+                    <li><strong>Y graph (Defendant/Δ)</strong>: Starts from top, crosses X graph</li>
+                    <li><strong>Crossing pattern</strong>: Graphs cross each other showing legal battle tension</li>
+                    <li><strong>Black arc with arrow</strong>: Shows which side wins (arrow points to winner)</li>
+                    <li><strong>Vertical axis</strong>: Null Hypothesis (H₀)</li>
+                    <li><strong>Horizontal axis</strong>: Alternative Hypothesis (H₁)</li>
+                    <li><strong>Ground Truth</strong>: Marked on the winning graph</li>
+                    <li><strong>Yellow tooltips</strong>: Hover for case details (larger = majority opinion)</li>
+                </ul>
+            </div>
+
+            <div class="info-card ref-card">
+                <h3>🔗 References</h3>
+                <ul>
+                    <li><a href="https://www.oyez.org/cases/1971/70-18" target="_blank">Roe v. Wade — Oyez.org</a></li>
+                    <li><a href="https://www.oyez.org/cases/2021/19-1392" target="_blank">Dobbs v. Jackson — Oyez.org</a></li>
+                </ul>
+                <p style="margin-top: 12px; font-size: 0.85em; opacity: 0.7;">
+                    LawG v1.31 — Lawgraph Visualization System<br>
+                    Built: 2026-02-13 | TypeScript Compiled
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModalBtn">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script type="module" src="js/lawgraph.js"></script>
+</body>
+</html>
